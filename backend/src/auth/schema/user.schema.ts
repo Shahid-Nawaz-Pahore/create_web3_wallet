@@ -11,7 +11,7 @@ export class User extends Document {
   password: string;
 
   @Prop({ required: true })
-  encryptedPrivateKey: string;
+  encryptedPrivateKey: string;   
 
   @Prop({required: true})
   walletAddress: string;
