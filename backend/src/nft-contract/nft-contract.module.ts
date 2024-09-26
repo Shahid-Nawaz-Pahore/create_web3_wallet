@@ -6,7 +6,6 @@ import { NftContractController } from './nft-contract.controller';
 import { User, UserSchema } from '../auth/schema/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from 'src/auth/auth.module';
-import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [

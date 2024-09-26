@@ -18,6 +18,7 @@ async function bootstrap() {
     .setTitle('WALLET API')
     .setDescription('This is the web3 wallet like metamask')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
