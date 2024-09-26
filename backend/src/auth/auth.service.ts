@@ -69,10 +69,10 @@ export class AuthService {
       throw new HttpException('Invalid password', HttpStatus.UNAUTHORIZED); // Incorrect password
     }
 
-    // Fetch wallet balance
+ 
     const provider = new ethers.providers.JsonRpcProvider(process.env.SEPOLIA_RPC_URL);
-    const balance = await provider.getBalance(user.walletAddress); // Get balance in Wei
-    const formattedBalance = ethers.utils.formatEther(balance); // Convert Wei to Ether
+    const balance = await provider.getBalance(user.walletAddress); 
+    const formattedBalance = ethers.utils.formatEther(balance); 
 
 
     const token = this.jwtService.sign(

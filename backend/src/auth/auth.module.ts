@@ -5,6 +5,8 @@ import { AuthService } from './auth.service';
 import { User, UserSchema } from './schema/user.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtAuthGuard } from './jwt-auth.guard'; // Ensure to import your JwtAuthGuard
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
@@ -18,12 +20,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService, JwtAuthGuard], // Include JwtAuthGuard if you're using it
+  exports: [AuthService, JwtModule, JwtAuthGuard], // Export them so other modules can use them
 })
 export class AuthModule {}
-
-// import { Injectable } from '@nestjs/common';
-// import { AuthGuard } from '@nestjs/passport';
-
-// @Injectable()
-// export class JwtAuthGuard extends AuthGuard('jwt') {}
