@@ -17,9 +17,25 @@ export class NftContractController {
   @ApiResponse({ status: 404, description: 'User not found.' }) // User not found response
   @ApiResponse({ status: 500, description: 'Failed to mint NFT.' }) // General error response
   async mintNFT(
-    @Body('identifier') userIdentifier: string, 
+    @Body('identifier') userId: string, 
     @Body('tokenURI') tokenURI: string
   ) {
-    return this.nftContractService.mintNFT(userIdentifier, tokenURI);
+    return this.nftContractService.mintNFT(userId, tokenURI);
   }
+
+  @Post('whitelist')
+  @UseGuards(JwtAuthGuard) // Guarded route for whitelisting
+  @ApiBearerAuth() // Swagger: Indicate Bearer token required
+  @ApiOperation({ summary: 'Whitelist a user to mint NFTs' }) // Swagger: API summary
+  @ApiResponse({ status: 200, description: 'User whitelisted successfully.' }) // Success response
+  @ApiResponse({ status: 401, description: 'Unauthorized. Invalid token.' }) // Unauthorized response
+  @ApiResponse({ status: 403, description: 'Forbidden. Only contract owner can whitelist.' }) // Forbidden response
+  @ApiResponse({ status: 500, description: 'Failed to whitelist user.' }) // General error response
+  async whitelistUser(
+    @Body('userAddress') userAddress: string,
+    @Body('ownerId')   ownerId:string
+  ) {
+    return this.nftContractService.whitelistUser(userAddress,ownerId);
+  }
+
 }

@@ -38,7 +38,7 @@ export class AuthService {
     
     const wallet = this.generateWallet();
     const hashedPassword = await bcrypt.hash(password, 10);
-    const encryptedPrivateKey = CryptoJS.AES.encrypt(wallet.privateKey, password).toString();
+    const encryptedPrivateKey = CryptoJS.AES.encrypt(wallet.privateKey, hashedPassword).toString();
   
     const newUser = new this.userModel({
         email:email,
@@ -51,8 +51,6 @@ export class AuthService {
   
     return {
         walletAddress: wallet.address,
-        balance: await wallet.getBalance(),
-        encryptedPrivateKey 
     };
   }
 
@@ -83,6 +81,7 @@ export class AuthService {
  
     return {
       accessToken: token,
+      userId:user.id,
       walletAddress: user.walletAddress,
       balance: formattedBalance,
     };
